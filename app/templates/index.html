@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+{% for message in get_flashed_messages() %}
+{{ message }}
+{% endfor %}
+{% for tour in tours %}
+<div class="row mt-5">
+      <div class="col-4">
+        <div class="card mb-4">
+          <div class="embed-responsive embed-responsive-16by9">
+             <img class="card-img-top embed-responsive-item" src="https://place-hold.it/300x200" alt="" />
+          </div>
+          <div class="card-body">
+            <h2 class="h5 card-title">{{ tour }}</h2>
+            <p class="card-text">{{ tour.time.strftime("%Y.%m.%d %H:%M") }}</p>
+            <a href="{{ url_for('book_tour', tour_id=tour.id) }}" class="btn btn-sm btn-primary">Book</a>
+            <a href="{{ url_for('edit_tour', tour_id=tour.id) }}" class="btn btn-sm btn-primary">Edit</a>
+          </div>
+        </div>
+      </div>
+</div>
+{% endfor %}
+
+{% endblock %}
