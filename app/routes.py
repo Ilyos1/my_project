@@ -9,5 +9,5 @@ from app import app, db
 
 @app.route('/')
 def index():
-    tours = db.session.scalars(sa.select(Tour)).all()
-    return render_template('index.html', tours=tours)
+    books = db.session.scalars(sa.select(Book)).all()
+    return render_template('index.html', books=books)
