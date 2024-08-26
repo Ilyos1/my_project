@@ -1,6 +1,6 @@
 import os
+
 from decouple import config
-from flask.sansio import app
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 

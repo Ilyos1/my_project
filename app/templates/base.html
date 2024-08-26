@@ -3,14 +3,14 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Flask Travel</title>
+  <title>Read Book</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
   <header class="container mt-5">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="{{ url_for('index') }}">Flask Travel</a>
+      <a class="navbar-brand" href="{{ url_for('index') }}">Read Book</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -24,10 +24,10 @@
             <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('profile') }}">Profile: {{ current_user }}</a>
+            <a class="nav-link" href="{{ url_for('profile') }}">Profile: {{ current_user.username }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('new_tour') }}">New Tour</a>
+            <a class="nav-link" href="{{ url_for('new_book') }}">New Book</a>
           </li>
           {% else %}
           <li class="nav-item">

@@ -1,6 +1,8 @@
-
+import token
 from datetime import datetime
+from time import time
 
+import jwt
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -8,6 +10,7 @@ from app import db, login
 import sqlalchemy as sa
 import sqlalchemy.orm as so
 from typing import Optional
+
 
 user_book = sa.Table(
     'user_book',
@@ -31,6 +34,20 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def get_token(self, expire_in=600):
+        return jwt.encode({'reset_password': self.id, 'exp': time() + expire_in}, "123456789", algorithm="HS256")
+
+    @staticmethod
+    def verify_token(password):
+        try:
+            id = jwt.decode(token, '123456789', algorithms=["HS256"])["reset_password"]
+        except:
+            return
+        return User.query.get_or_404(id)
+
+    def __repr__(self):
+        return self.username
+
 
 @login.user_loader
 def load_user(id):
@@ -39,12 +56,14 @@ def load_user(id):
 
 class Book(db.Model):
     id: so.MappedColumn[int] = so.mapped_column(primary_key=True)
-    title: so.MappedColumn[str] = so.mapped_column(sa.String(60))
+    name: so.MappedColumn[str] = so.mapped_column(sa.String(64))
     description: so.MappedColumn[str]
-    time: so.Mapped[datetime] = so.mapped_column(default=lambda: datetime.now())
     price: so.MappedColumn[float]
-    country: so.MappedColumn[str] = so.mapped_column(sa.String(60))
+    country: so.MappedColumn[str] = so.mapped_column(sa.String(64))
     users: so.WriteOnlyMapped[User] = so.relationship('User', secondary=user_book, back_populates='user_books')
+    author: so.MappedColumn[str] = so.mapped_column(sa.String(64))
+    year: so.MappedColumn[int]
+    genres: so.MappedColumn[str] = so.mapped_column(sa.String(128))
 
     def __repr__(self):
-        return f'Book: {self.title}'
+        return f'Book: {self.name}'
