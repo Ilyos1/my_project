@@ -12,7 +12,7 @@ from typing import Optional
 
 user_book = sa.Table(
     'user_book',
-    sa.metadata,
+    db.metadata,
     sa.Column('user_id', sa.Integer, sa.ForeignKey('user.id'), primary_key=True),
     sa.Column('book_id', sa.Integer, sa.ForeignKey('book.id'), primary_key=True)
 )
