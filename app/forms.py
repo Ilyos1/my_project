@@ -1,17 +1,35 @@
 from flask_wtf import FlaskForm
-from wtforms import FloatField, StringField, SubmitField
-from wtforms.fields.simple import PasswordField
+from flask_wtf.file import FileField, FileAllowed
+from wtforms import StringField, SubmitField
+from wtforms.fields.numeric import IntegerField
+from wtforms.fields.simple import PasswordField, BooleanField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, NumberRange, Optional
+from wtforms.widgets.core import CheckboxInput
+
+
+class GenresCheckboxField(BooleanField):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('widget', CheckboxInput())
+        super().__init__(*args, **kwargs)
 
 
 class BookForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired(), Length(min=4, max=20)])
-    description = StringField('Description', validators=[Optional(), Length(min=4, max=100)])
-    price = FloatField('Price', validators=[DataRequired(), NumberRange(max=10000)])
+    name = StringField('Name', validators=[DataRequired(), Length(min=1, max=20)])
+    description = StringField('Description', validators=[Optional(), Length(min=1, max=100)])
+    price = IntegerField('Price', validators=[DataRequired(), NumberRange(min=1, max=10000)])
     country = StringField('Country', validators=[DataRequired(), Length(min=2, max=70)])
     author = StringField('Author', validators=[DataRequired(), Length(min=2, max=100)])
-    genres = StringField('Genres', validators=[DataRequired(), Length(min=4, max=100)])
-    year = StringField('Genres', validators=[DataRequired(), Length(min=4, max=4)])
+    photo = FileField('Photo', validators=[FileAllowed(['jpg', 'png'])])
+    year = IntegerField('Year', validators=[DataRequired()], )
+    book_txt = FileField('Txt_file', validators=[FileAllowed(['txt'])])
+
+    Romance = GenresCheckboxField('Romance')
+    Fiction = GenresCheckboxField('Fiction')
+    Mystery = GenresCheckboxField('Mystery')
+    Fantasy = GenresCheckboxField('Fantasy')
+    Horror = GenresCheckboxField('Horror')
+    Biography = GenresCheckboxField('Biography')
+    Comedy = GenresCheckboxField('Comedy')
     submit = SubmitField('Create')
 
 

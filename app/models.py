@@ -1,20 +1,18 @@
 import token
-from datetime import datetime
 from time import time
 
 import jwt
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from app import db, login
+from app import db, login, app
 import sqlalchemy as sa
 import sqlalchemy.orm as so
 from typing import Optional
 
-
 user_book = sa.Table(
     'user_book',
-    db.metadata,
+    sa.metadata,
     sa.Column('user_id', sa.Integer, sa.ForeignKey('user.id'), primary_key=True),
     sa.Column('book_id', sa.Integer, sa.ForeignKey('book.id'), primary_key=True)
 )
@@ -58,12 +56,22 @@ class Book(db.Model):
     id: so.MappedColumn[int] = so.mapped_column(primary_key=True)
     name: so.MappedColumn[str] = so.mapped_column(sa.String(64))
     description: so.MappedColumn[str]
-    price: so.MappedColumn[float]
+    price: so.MappedColumn[int]
     country: so.MappedColumn[str] = so.mapped_column(sa.String(64))
-    users: so.WriteOnlyMapped[User] = so.relationship('User', secondary=user_book, back_populates='user_books')
     author: so.MappedColumn[str] = so.mapped_column(sa.String(64))
     year: so.MappedColumn[int]
-    genres: so.MappedColumn[str] = so.mapped_column(sa.String(128))
+    photo: so.MappedColumn[str]
+    users: so.WriteOnlyMapped[User] = so.relationship('User', secondary=user_book, back_populates='user_books')
+    genres: so.MappedColumn[str]
+    book_txt: so.MappedColumn[str]
+
+    def __repr__(self):
+        return f'Book: {self.name}'
+
+
+class Genre(db.Model):
+    id: so.MappedColumn[int] = so.mapped_column(primary_key=True)
+    name: so.MappedColumn[str] = so.mapped_column(sa.String(128))
 
     def __repr__(self):
         return f'Book: {self.name}'

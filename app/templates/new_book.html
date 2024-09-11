@@ -1,34 +1,132 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <div class="container w-75">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
-        <div class="form group mb-2">
+        <div>
             {{ form.name.label(class="form-label") }}
             {{ form.name(class="form-control") }}
+            <br>
+            {% for error in form.name.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
         </div>
-        <div class="form group mb-2">
-            {{ form.description.label(class="form-label") }}
+        <div>
+            {{ form.description.label() }}
             {{ form.description(class="form-control") }}
+            <br>
+            {% for error in form.description.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
         </div>
-        <div class="form group mb-2">
+        <div>
             {{ form.country.label(class="form-label") }}
             {{ form.country(class="form-control") }}
+            <br>
+            {% for error in form.country.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
         </div>
-        <div class="form group mb-2">
+        <div>
             {{ form.price.label(class="form-label") }}
             {{ form.price(class="form-control") }}
+            <br>
+            {% for error in form.price.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
         </div>
-        <div class="form group mb-2">
+        <div>
             {{ form.author.label(class="form-label") }}
             {{ form.author(class="form-control") }}
+            <br>
+            {% for error in form.author.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
         </div>
-        <div class="form group mb-2">
-            {{ form.genres.label(class="form-label") }}
-            {{ form.genres(class="form-control") }}
+        <div>
+            {{ form.year.label(class="form-label") }}
+            {{ form.year(class="form-control") }}
+            <br>
+            {% for error in form.year.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
         </div>
-        <div class="form group">
+        <div>
+            {{ form.photo.label(class="form-label") }}
+            {{ form.photo(class="form-control") }}
+            <br>
+            {% for error in form.photo.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.book_txt.label(class="form-label") }}
+            {{ form.book_txt(class="form-control") }}
+            <br>
+            {% for error in form.book_txt.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            <p>Genres</p>
+            {{ form.Romance.label() }}
+            {{ form.Romance() }}
+            <br>
+            {% for error in form.Romance.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.Fiction.label() }}
+            {{ form.Fiction() }}
+            <br>
+            {% for error in form.Fiction.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.Mystery.label() }}
+            {{ form.Mystery() }}
+            <br>
+            {% for error in form.Mystery.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.Fantasy.label() }}
+            {{ form.Fantasy() }}
+            <br>
+            {% for error in form.Fantasy.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.Horror.label() }}
+            {{ form.Horror() }}
+            <br>
+            {% for error in form.Horror.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.Biography.label() }}
+            {{ form.Biography() }}
+            <br>
+            {% for error in form.Biography.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.Comedy.label() }}
+            {{ form.Comedy() }}
+            <br>
+            {% for error in form.Comedy.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
             {{ form.submit(class="btn btn-primary mb-3") }}
         </div>
     </form>

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container w-75">
+    <form method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.name.label(class="form-label") }}
+            {{ form.name(class="form-control") }}
+            <br>
+            {% for error in form.name.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.description.label() }}
+            {{ form.description(class="form-control") }}
+            <br>
+            {% for error in form.description.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.country.label(class="form-label") }}
+            {{ form.country(class="form-control") }}
+            <br>
+            {% for error in form.country.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.price.label(class="form-label") }}
+            {{ form.price(class="form-control") }}
+            <br>
+            {% for error in form.price.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.author.label(class="form-label") }}
+            {{ form.author(class="form-control") }}
+            <br>
+            {% for error in form.author.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.year.label(class="form-label") }}
+            {{ form.year(class="form-control") }}
+            <br>
+            {% for error in form.year.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.submit(class="btn btn-primary mb-3") }}
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,8 +1,8 @@
 """catagory post table
 
-Revision ID: eb8830e6f6b3
+Revision ID: 1e59b780bb3a
 Revises: 
-Create Date: 2024-08-25 20:42:44.847909
+Create Date: 2024-09-10 23:14:52.166207
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'eb8830e6f6b3'
+revision = '1e59b780bb3a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,11 +22,18 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=64), nullable=False),
     sa.Column('description', sa.String(), nullable=False),
-    sa.Column('price', sa.Float(), nullable=False),
+    sa.Column('price', sa.Integer(), nullable=False),
     sa.Column('country', sa.String(length=64), nullable=False),
     sa.Column('author', sa.String(length=64), nullable=False),
     sa.Column('year', sa.Integer(), nullable=False),
-    sa.Column('genres', sa.String(length=128), nullable=False),
+    sa.Column('photo', sa.String(), nullable=False),
+    sa.Column('genres', sa.String(), nullable=False),
+    sa.Column('book_txt', sa.String(), nullable=False),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('genre',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(length=128), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user',
@@ -59,5 +66,6 @@ def downgrade():
         batch_op.drop_index(batch_op.f('ix_user_email'))
 
     op.drop_table('user')
+    op.drop_table('genre')
     op.drop_table('book')
     # ### end Alembic commands ###
