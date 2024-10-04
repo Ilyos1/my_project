@@ -106,15 +106,13 @@ def new_book():
 
 @app.route('/book/save/<int:book_id>')
 def save_book(book_id):
-    book = db.session.execute(sa.select(Book).where(Book.id == book_id)).scalar()
-    book_save = current_user.user_books
-    if book in book_save:
-        return flash('You have already saved this tour')
-    book_save.append(book)
+    book = db.session.scalar(sa.select(Book).where(Book.id == book_id))
+    user_books = db.session.scalars(current_user.user_books.select())
+    if book in user_books:
+        return '<h1>You have already saved this book</h1>'
+    current_user.user_books.add(book)
     db.session.commit()
-    flash('You have saved this book successfully')
-    return redirect(url_for('index'))
-
+    return '<h1>You have saved this book successfully</h1>'
 
 
 @app.route('/logout')
@@ -142,10 +140,10 @@ def login():
 def confirm_email(token):
     user = User.verify_token(token)  # USER or None
     if not user:
-        return '<h1>Cannot confirm your email'
+        return '<h1>Cannot confirm your email</h1>'
     user.is_active = True
     db.session.commit()
-    return '<h1>You have confirmed your email successfully'
+    return '<h1>You have confirmed your email successfully</h1>'
 
 
 @app.route('/reset-password-request', methods=['GET', 'POST'])
@@ -166,7 +164,7 @@ def reset_password(token):
         return redirect(url_for('index'))
     user = User.verify_token(token)  # USER or None
     if not user:
-        return '<h1>Invalid link'
+        return '<h1>Invalid link</h1>'
     form = ResetPasswordForm()
     if form.validate_on_submit():
         user.set_password(form.password.data)

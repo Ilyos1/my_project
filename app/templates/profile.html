@@ -2,9 +2,14 @@
 
 {% block content %}
 <h1>Profile</h1>
-<p>Welcome, {{ current_user.username }}</p>
-<h3>Your Books</h3>
-{% for tour in user_books %}
-<p>{{ book }}</p>
+<h3>Your Books:</h3>
+{% for book in user_books %}
+<div >
+    <div class="col-md-3 mb-3">
+        <img class="card-img-top embed-responsive-item" src="{{ url_for('static', filename=book.photo) }}" alt="" />
+        <p class="card-body">{{ book }}</p>
+    </div>
+</div>
+
 {% endfor %}
 {% endblock %}

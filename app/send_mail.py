@@ -12,7 +12,6 @@ def send_confirmation_email(user):
         sender='ilyoslaylo2006@gmail.com',
         recipients=[user.email],
     )
-
     message.html = render_template('email_template.html', token=token)
     mail.send(message)
 

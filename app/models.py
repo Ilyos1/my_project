@@ -36,7 +36,7 @@ class User(UserMixin, db.Model):
         return jwt.encode({'reset_password': self.id, 'exp': time() + expire_in}, "123456789", algorithm="HS256")
 
     @staticmethod
-    def verify_token(password):
+    def verify_token(token):
         try:
             id = jwt.decode(token, '123456789', algorithms=["HS256"])["reset_password"]
         except:
